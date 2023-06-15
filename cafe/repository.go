@@ -39,7 +39,7 @@ func (r *repository) FindById(ID int) (Cafe, error) {
 	return cafe, nil
 }
 
-func (r *repository) FindByAll(rating float32, lokasi string) ([]Cafe, error){
+func (r *repository) FindByAll(rating float32, lokasi string) ([]Cafe, error) {
 	var all []Cafe
 
 	err := r.db.Where("rating = ? and location like ?", rating, "%"+lokasi+"%").Find(&all).Error

@@ -1,10 +1,11 @@
 package touris
 
+//pembuatan entitas seusai dengan table database
 type Touris struct {
-	ID         int
-	Name       string
-	Rating     float32
-	Location   string
-	EntraceFee float32
-	ImgURL     string
+	ID     int
+	Nama   string
+	Rating float32
+	Lokasi string
+	ImgURL string
+	Budget int
 }

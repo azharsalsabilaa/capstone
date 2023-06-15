@@ -22,23 +22,41 @@ func (s *service) GetTouris(ID int) ([]Touris, error) {
 }
 
 func (s *service) GetRating(input InputGetTouris) ([]Touris, error) {
-	if input.Rating != 0 && input.Lokasi != "" {
-		newTouris, err := s.repository.FindByAll(input.Rating, input.Lokasi)
+	if input.Rating != 0 && input.Lokasi != "" && input.Budget != 0 {
+		newhotel, err := s.repository.FindByAll(input.Rating, input.Lokasi, input.Budget)
 		if err != nil {
-			return newTouris, err
+			return newhotel, err
 		}
-		return newTouris, nil
-	} else if input.Lokasi != "" {
-		newLokasi, err := s.repository.FindByLokasi(input.Lokasi)
+		return newhotel, nil
+	} else if input.Lokasi != "" && input.Budget != 0 {
+		newLokasi, err := s.repository.FindByBudgetAndLokasi(input.Lokasi, input.Budget)
 		if err != nil {
 			return newLokasi, err
 		}
 		return newLokasi, nil
-	} else {
-		newRating, err := s.repository.FindByRating(input.Rating)
+	} else if input.Rating != 0 && input.Budget != 0 {
+		newRating, err := s.repository.FindByRatingAndBudget(input.Rating, input.Budget)
 		if err != nil {
 			return newRating, err
 		}
 		return newRating, nil
+	} else if input.Lokasi != "" {
+		newBudget, err := s.repository.FindByLokasi(input.Lokasi)
+		if err != nil {
+			return newBudget, err
+		}
+		return newBudget, nil
+	} else if input.Rating != 0 {
+		newBudget, err := s.repository.FindByRating(input.Rating)
+		if err != nil {
+			return newBudget, err
+		}
+		return newBudget, nil
+	} else {
+		newBudget, err := s.repository.FindByBudget(input.Budget)
+		if err != nil {
+			return newBudget, err
+		}
+		return newBudget, nil
 	}
 }

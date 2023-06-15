@@ -5,6 +5,7 @@ package hotel
 // }
 
 type InputHotel struct {
-	Lokasi string `json:"lokasi"`
+	Lokasi string  `json:"lokasi"`
 	Rating float32 `json:"rating"`
+	Budget int     `json:"budget"`
 }
