@@ -42,7 +42,7 @@ func (r *repository) FindById(ID int) (Cafe, error) {
 func (r *repository) FindByAll(rating float32, lokasi string) ([]Cafe, error){
 	var all []Cafe
 
-	err := r.db.Where("rating = ? and lokasi = ?", rating, lokasi).Find(&all).Error
+	err := r.db.Where("rating = ? and location like ?", rating, "%"+lokasi+"%").Find(&all).Error
 	if err != nil {
 		return all, err
 	}
@@ -66,7 +66,7 @@ func (r *repository) FindByLokasi(lokasi string) ([]Cafe, error) {
 	var lokation []Cafe
 
 	//menggunakan where yang mana email mana ni yang mau di loginin sesuai ga
-	err := r.db.Where("lokasi = ?", lokasi).Find(&lokation).Error
+	err := r.db.Where("location like ?", "%"+lokasi+"%").Find(&lokation).Error
 	if err != nil {
 		return lokation, err
 	}

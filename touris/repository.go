@@ -39,10 +39,10 @@ func (r *repository) FindById(ID int) (Touris, error) {
 	return touris, nil
 }
 
-func (r *repository) FindByAll(rating float32, lokasi string) ([]Touris, error){
+func (r *repository) FindByAll(rating float32, lokasi string) ([]Touris, error) {
 	var all []Touris
 
-	err := r.db.Where("rating = ? and lokasi = ?", rating, lokasi).Find(&all).Error
+	err := r.db.Where("rating = ? and location like ?", rating, "%"+lokasi+"%").Find(&all).Error
 	if err != nil {
 		return all, err
 	}
@@ -62,11 +62,10 @@ func (r *repository) FindByRating(rating float32) ([]Touris, error) {
 	return rate, nil
 }
 
-
 func (r *repository) FindByLokasi(rating string) ([]Touris, error) {
 	var lokasi []Touris
 
-	err := r.db.Where("location = ?", rating).Find(&lokasi).Error
+	err := r.db.Where("location like ?", "%"+rating+"%").Find(&lokasi).Error
 	if err != nil {
 		return lokasi, err
 	}
